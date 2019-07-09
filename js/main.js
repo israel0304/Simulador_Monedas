@@ -41,9 +41,32 @@ class Simulador{
   }
 }
 
+class Mostrar{
+  constructor(nm=1,nl=1){
+    this.nm=nm;
+    this.nl=nl;
+    this.monedas=new Simulador(this.nm,this.nl).simular();
+    this.valores=this.monedas.map(function(monedas){
+      return monedas.moneda;
+    });
+    //this.valores=[];
+  }
+  
+  valor(){
+   // m(this.monedas);
+    this.valores.forEach(function(valor,indice){
+      d(valor+"<br>");
+    });
+  }
+}
+
+prueba = new Mostrar(4,10);
+prueba.valor();
+//m(prueba.valor());
+
  mml= new Simulador(1,10);
  monedas = mml.simular();
- m(monedas);
+ //m(monedas);
  valores = monedas.map(function (monedas){
    return monedas.moneda;
  });
@@ -51,16 +74,3 @@ class Simulador{
  valores.forEach(function(valor,indice){
    d(valor+"<br>");
  });
- 
- 
-
-/*
-   valores = monedas.map(function(monedas){
-      return monedas.moneda;
-    });
-    
-    valores.forEach(function(valor,indice){
-      d(valor+"<br>");
-    });
-  
-  */
