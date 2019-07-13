@@ -5,8 +5,8 @@ d=function(d){
   document.write(d);
 };
 
-class Cara{
-  lado(min,max){
+class Aleatorio{
+  numero(min,max){
     return parseInt(Math.random()*(max-min)+min);
   }
 }
@@ -15,7 +15,7 @@ class LanzarM{
   lanzar(nl=1){
     this.recoger=[0,0];
       for(this.i=0;this.i<nl;this.i++){
-        this.lados = new Cara().lado(2,0);
+        this.lados = new Aleatorio().numero(0,2);
         this.evaluar=(this.lados===0)?this.recoger[0]++:this.recoger[1]++;
        }
        return this.recoger;
@@ -29,7 +29,17 @@ class Simulador{
     this.nl=nl;
   }
   
-  simular(){
+  lanzar(nl=1){
+    this.recoger=[0,0];
+    for(this.i=0;this.i<nl;this.i++){
+      this.lados = new Cara().lado(2,0);
+      this.evaluar=(this.lados===0)?this.recoger[0]++:this.recoger[1]++;
+      }
+    return this.recoger;
+    }
+    
+    
+  recuperarL(){
     for(this.i=0;this.i<this.nm;this.i++){
       this.sim = new LanzarM();
       this.sim.lanzar(this.nl);
@@ -37,40 +47,30 @@ class Simulador{
       this.s=this.sim.recoger[1];
       this.monedas.push({moneda:[this.a,this.s]});
     }
+    //m(this.monedas);
     return this.monedas;
   }
 }
 
-class Mostrar{
+
+class Moneda{
   constructor(nm=1,nl=1){
     this.nm=nm;
     this.nl=nl;
-    this.monedas=new Simulador(this.nm,this.nl).simular();
-    this.valores=this.monedas.map(function(monedas){
+    this.monedas=new Simulador(this.nm,this.nl).recuperarL();
+    this.valores = this.monedas.map(function(monedas){
       return monedas.moneda;
     });
-    //this.valores=[];
   }
   
   valor(){
-   // m(this.monedas);
+    //m(this.monedas);
     this.valores.forEach(function(valor,indice){
-      d(valor+"<br>");
+      m({moneda:valor});
     });
   }
 }
 
-prueba = new Mostrar(4,10);
-prueba.valor();
-//m(prueba.valor());
-
- mml= new Simulador(1,10);
- monedas = mml.simular();
- //m(monedas);
- valores = monedas.map(function (monedas){
-   return monedas.moneda;
- });
- 
- valores.forEach(function(valor,indice){
-   d(valor+"<br>");
- });
+moneda = new Moneda(2,2);
+moneda.valor();
+m(moneda.valores);
